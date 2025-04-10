@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Demo.DataAccess.Models
 {
-    class Department:BaseEntity
+    public class Department:BaseEntity
     {
         public required string Name { get; set; }
 
         public string Code { get; set; } = null!;
 
-        public string Description { get; set; } 
+        public string ?Description { get; set; } 
 
 
     }

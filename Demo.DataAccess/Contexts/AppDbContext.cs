@@ -8,11 +8,16 @@ using System.Reflection;
 using Demo.DataAccess.Models;
 namespace Demo.DataAccess.Contexts
 {
-    class AppDbContext:DbContext
+    public class AppDbContext:DbContext
     {
+
+        public AppDbContext(DbContextOptions<AppDbContext> options):base()
+        {
+            
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("con");
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog =MVCDemo; User ID=sa;TrustServerCertificate=True;Password=015");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

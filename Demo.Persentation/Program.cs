@@ -1,3 +1,8 @@
+using Demo.DataAccess.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Demo.DataAccess.Repositoriers;
+using Demo.BusinessLogic.Services;
+
 namespace Demo.Persentation
 {
     public class Program
@@ -5,10 +10,21 @@ namespace Demo.Persentation
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            #region Depndencey Injection
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<AppDbContext>(options=> 
+            {
+                options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+                //options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
+            });//Register service in Dependance Injection
+
+            builder.Services.AddScoped<IDepartmentReprository,DepartmentReprository>();
+            builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
+
+            #endregion
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
