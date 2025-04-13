@@ -1,19 +1,20 @@
 ﻿using Demo.BusinessLogic.DTOs;
-using Demo.BusinessLogic.Services;
+using Demo.BusinessLogic.DTOs.DepartmentDtos;
+using Demo.BusinessLogic.Services.Interfaces;
 using Demo.Persentation.ViewModels.DepartmentsViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Persentation.Controllers
 {
     public class DepartmentController
-        (IDepartmentServices _departmentServices ,
+        (IDepartmentService _departmentServices ,
         ILogger<DepartmentController> _logger ,
         IWebHostEnvironment _environment) : Controller
     {
         public IActionResult Index()
         {
             var department = _departmentServices.GetAllDepartments();
-            return View();
+            return View(department);
         }
         [HttpGet]
         #region Create department
@@ -129,6 +130,51 @@ namespace Demo.Persentation.Controllers
             return View(departmentEditViewModel);
         }
 
+        #endregion
+        #region Delete 
+        [HttpGet]
+        public IActionResult Delete(int? Id)
+        {
+            if (!Id.HasValue) return BadRequest();
+            var department = _departmentServices.GetDepartmentById(Id.Value);
+            if(department is null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(department);
+            }
+        }
+        [HttpPost]
+        public IActionResult Delete([FromRoute] int id, DepartmentEditViewModel departmentEditViewModel)
+        {
+            if (id == 0) return BadRequest();
+            try 
+            {
+
+                var IsDeleted = _departmentServices.DeletedDepartment(id);
+                if (IsDeleted) return RedirectToAction(nameof(Index));
+                ModelState.AddModelError(string.Empty, "Deparment Cant Be Deleted");
+
+            }
+             
+            catch (Exception ex)
+            {
+                if (_environment.IsDevelopment())
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+
+                }
+                else
+                {
+                    _logger.LogError(ex.Message);
+                }
+
+            }
+            return RedirectToAction(nameof(Delete), new {id=id});
+
+        }
             #endregion
         }
 }

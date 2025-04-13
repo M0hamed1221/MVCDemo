@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.DataAccess.Models
+namespace Demo.DataAccess.Models.SharedModel
 {
     public class BaseEntity
     {
@@ -12,11 +12,11 @@ namespace Demo.DataAccess.Models
 
         public int CreatedBy { get; set; }//User ID
 
-        public DateTime? CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public int LastModifiedBy { get; set; }//User ID
 
-        public DateTime? LastModifiedOn { get; set; }
+        public DateTime LastModifiedOn { get; set; }
 
         public bool IsDeleted { get; set; }
 

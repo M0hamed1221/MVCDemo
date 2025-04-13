@@ -1,7 +1,11 @@
 using Demo.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Demo.DataAccess.Repositoriers;
-using Demo.BusinessLogic.Services;
+using Demo.DataAccess.Repositoriers.Interfaces;
+using Demo.DataAccess.Repositoriers.Classes;
+using Demo.BusinessLogic.Services.Interfaces;
+using Demo.BusinessLogic.Services.Classes;
+using Microsoft.Extensions.DependencyInjection;
+using Demo.BusinessLogic.Profiles;
 
 namespace Demo.Persentation
 {
@@ -22,10 +26,16 @@ namespace Demo.Persentation
             });//Register service in Dependance Injection
 
             builder.Services.AddScoped<IDepartmentReprository,DepartmentReprository>();
-            builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
+
+
+            //builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            builder.Services.AddAutoMapper(p => p.AddProfile(new MappingProfile()));
             #endregion
-            var app = builder.Build();
+            var app = builder.Build();  
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

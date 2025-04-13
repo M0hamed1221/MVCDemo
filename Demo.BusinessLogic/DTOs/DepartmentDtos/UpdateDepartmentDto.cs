@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.BusinessLogic.DTOs
+namespace Demo.BusinessLogic.DTOs.DepartmentDtos
 {
    public class UpdateDepartmentDto
     {
@@ -15,7 +15,7 @@ namespace Demo.BusinessLogic.DTOs
 
         public string? Description { get; set; }
 
-        public DateTime? DateOfCreation { get; set; }
+        public DateTime DateOfCreation { get; set; }
 
     }
 }

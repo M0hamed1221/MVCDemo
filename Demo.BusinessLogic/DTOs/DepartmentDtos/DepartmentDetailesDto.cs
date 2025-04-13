@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.BusinessLogic.DTOs
+namespace Demo.BusinessLogic.DTOs.DepartmentDtos
 {
     public class DepartmentDetailesDto
     {
@@ -29,12 +29,12 @@ namespace Demo.BusinessLogic.DTOs
 
         public string? Description { get; set; }
 
-        public DateTime? DateOfCreation { get; set; }
+        public DateTime DateOfCreation { get; set; }
 
         public int CreatedBy { get; set; }
 
         public int LastModifiedBy { get; set; }
-        public DateTime? LastModifiedOn { get; set; }
+        public DateTime LastModifiedOn { get; set; }
 
         public bool IsDeleted { get; set; }
 

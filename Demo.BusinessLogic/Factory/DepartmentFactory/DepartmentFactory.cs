@@ -1,12 +1,12 @@
-﻿using Demo.BusinessLogic.DTOs;
-using Demo.DataAccess.Models;
+﻿using Demo.BusinessLogic.DTOs.DepartmentDtos;
+using Demo.DataAccess.Models.DepartmentModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.BusinessLogic.Factory
+namespace Demo.BusinessLogic.Factory.DepartmentFactory
 {
     public static class DepartmentFactory
     {

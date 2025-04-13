@@ -1,6 +1,6 @@
-﻿using Demo.DataAccess.Models;
+﻿using Demo.DataAccess.Models.DepartmentModels;
 
-namespace Demo.DataAccess.Repositoriers
+namespace Demo.DataAccess.Repositoriers.Interfaces
 {
     public interface IDepartmentReprository
     {
@@ -9,5 +9,6 @@ namespace Demo.DataAccess.Repositoriers
         Department? GetByID(int ID);
         int Remove(Department dept);
         int Update(Department dept);
+       
     }
 }

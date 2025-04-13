@@ -8,6 +8,6 @@
 
         public string? Description { get; set; }
 
-        public DateTime? DateOfCreation { get; set; }
+        public DateTime DateOfCreation { get; set; }
     }
 }

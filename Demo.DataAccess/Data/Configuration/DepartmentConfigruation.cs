@@ -1,4 +1,4 @@
-﻿using Demo.DataAccess.Models;
+﻿using Demo.DataAccess.Models.DepartmentModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,16 +9,14 @@ using System.Threading.Tasks;
 
 namespace Demo.DataAccess.Data.Configuration
 {
-    class DepartmentConfigruation : IEntityTypeConfiguration<Department>
+    class DepartmentConfigruation : BaseEntityConfiguration<Department>,IEntityTypeConfiguration<Department>
     {
-        public void Configure(EntityTypeBuilder<Department> builder)
+        public new void Configure(EntityTypeBuilder<Department> builder)
         {
             builder.Property(dept => dept.Id).UseIdentityColumn(10,10);
             builder.Property(dept => dept.Name).HasColumnType("Varchar(20)");
             builder.Property(dept => dept.Code).HasColumnType("Varchar(20)");
-            builder.Property(dept => dept.CreatedOn).HasDefaultValueSql("GETDATE()");
-            /*If it null the default value will be assgined*/
-            builder.Property(dept => dept.LastModifiedOn).HasComputedColumnSql("GETDATE()");
+            base.Configure(builder);
 
 
         }

@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.DataAccess.Repositories
+namespace Demo.DataAccess.Models.SharedModel
 {
-    class DepartmentRepository
+   public  enum Gender
     {
+        
+        Female=0,
+        Male=1
     }
 }
