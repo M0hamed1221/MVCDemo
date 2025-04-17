@@ -6,6 +6,7 @@ using Demo.BusinessLogic.Services.Interfaces;
 using Demo.BusinessLogic.Services.Classes;
 using Microsoft.Extensions.DependencyInjection;
 using Demo.BusinessLogic.Profiles;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Persentation
 {
@@ -16,7 +17,11 @@ namespace Demo.Persentation
             var builder = WebApplication.CreateBuilder(args);
             #region Depndencey Injection
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            }             
+            );
             builder.Services.AddDbContext<AppDbContext>(options=> 
             {
                 options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);

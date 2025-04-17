@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Demo.DataAccess.Repositoriers.Interfaces
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository:iGenaricRepository<Employee>
     {
         int Add(Employee emp); 
         IEnumerable<Employee> GetAll(bool WithTracking = false);

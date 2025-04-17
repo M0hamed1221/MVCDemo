@@ -1,4 +1,5 @@
-﻿using Demo.DataAccess.Models.SharedModel;
+﻿using Demo.DataAccess.Models.EmployeeModels;
+using Demo.DataAccess.Models.SharedModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace Demo.DataAccess.Models.DepartmentModels
 
         public string Code { get; set; } = null!;
 
-        public string ?Description { get; set; } 
+        public string ?Description { get; set; }
 
-
+        public ICollection<Employee> Employees { get; set; }= new HashSet<Employee>();
     }
 }

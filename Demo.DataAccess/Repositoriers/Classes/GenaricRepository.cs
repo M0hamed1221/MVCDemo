@@ -52,5 +52,19 @@ namespace Demo.DataAccess.Repositoriers.Classes
             return _dbContext.SaveChanges();
 
         }
+        IEnumerable<TResult> iGenaricRepository<TEntity>.GetAll<TResult>(System.Linq.Expressions.Expression<Func<TEntity, TResult>> selector)
+        {
+         return  _dbContext.Set<TEntity>()
+                .Select(selector).ToList();
+        }
+        //public IEnumerable<TEntity> GetIEnumerable()
+        //{
+        //   return _dbContext.Set<TEntity>();
+        //}
+
+        //public IQueryable<TEntity> GetIQueryable()
+        //{
+        //    return _dbContext.Set<TEntity>();
+        //}
     }
 }

@@ -16,6 +16,10 @@ namespace Demo.DataAccess.Data.Configuration
             builder.Property(dept => dept.Id).UseIdentityColumn(10,10);
             builder.Property(dept => dept.Name).HasColumnType("Varchar(20)");
             builder.Property(dept => dept.Code).HasColumnType("Varchar(20)");
+            builder.HasMany(dept => dept.Employees)
+                   .WithOne(emp => emp.Department)
+                   .HasForeignKey(emp => emp.DepartmentId)
+                   .OnDelete(DeleteBehavior.SetNull);
             base.Configure(builder);
 
 

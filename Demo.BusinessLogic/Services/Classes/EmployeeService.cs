@@ -23,7 +23,24 @@ namespace Demo.BusinessLogic.Services.Classes
             var employees = _employeeRepository.GetAll();
             //var employeesToReturn = employees.Select(e => e.ToGetEmployeeDto());
             return _imapper.Map<IEnumerable<GetEmployeeDto>>(employees);
-             
+            //var res = _employeeRepository.GetIEnumerable()
+            //.Select(emp => new GetEmployeeDto()
+            //{
+            //    Id = emp.Id,
+            //    Name = emp.Name,
+            //    Age = emp.Age,
+            //}
+            //).ToList();
+            //return res;
+            //  var res = _employeeRepository.GetIQueryable()
+            //.Select(emp => new GetEmployeeDto()
+            //{
+            //    Id = emp.Id,
+            //    Name = emp.Name,
+            //    Age = emp.Age,
+            //}
+            //).ToList();
+            //  return res;
         }
 
         public EmployeeDetailesDto? GetEmployeeById(int id)
