@@ -1,5 +1,6 @@
 ﻿using Demo.DataAccess.Models.EmployeeModels;
 using Demo.DataAccess.Models.SharedModel;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -35,5 +36,7 @@ namespace Demo.BusinessLogic.DTOs.EmployeeDtos
         public EmployeeType EmployeeType { get; set; }
 
         public int? DepartmentId { get; set; }
+
+        public IFormFile?  Image { get; set; }
     }
 }

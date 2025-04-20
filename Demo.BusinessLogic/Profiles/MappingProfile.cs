@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Demo.BusinessLogic.DTOs.EmployeeDtos;
 using Demo.DataAccess.Models;
+using Demo.DataAccess.Models.DepartmentModels;
 using Demo.DataAccess.Models.EmployeeModels;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Demo.BusinessLogic.Profiles
                  .ForMember(dest => dest.HireDate, option => option.MapFrom(empdto => empdto.HiringDate.ToDateTime(TimeOnly.MinValue)));;
 
             CreateMap<Department, GetEmployeeDto>()
-              .ForMember(des => des.EmpType, option => option.MapFrom(emp => emp.EmployeeType))
+          
               
               ;
 

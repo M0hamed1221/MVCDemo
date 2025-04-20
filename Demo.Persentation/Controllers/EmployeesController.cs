@@ -51,6 +51,7 @@ namespace Demo.Persentation.Controllers
                         EmployeeType=employeeViewModel.EmployeeType,
                         IsActive=employeeViewModel.IsActive,
                         PhoneNumber=employeeViewModel.PhoneNumber,
+                        Image=employeeViewModel.Image   
 
 
                     };

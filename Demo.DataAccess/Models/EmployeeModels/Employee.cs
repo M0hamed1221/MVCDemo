@@ -33,5 +33,6 @@ namespace Demo.DataAccess.Models.EmployeeModels
 
         public Department? Department { get; set; }
 
+        public string? ImageName { get; set; }
     }
 }

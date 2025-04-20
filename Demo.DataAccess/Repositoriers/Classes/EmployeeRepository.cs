@@ -56,6 +56,29 @@ namespace Demo.DataAccess.Repositoriers.Classes
         //    return _dbContext.SaveChanges();
 
         //}
-     
+        int IEmployeeRepository.Add(Employee emp)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Employee> IEmployeeRepository.GetAll(string EmployeeSearchName, bool WithTracking)
+        {
+            throw new NotImplementedException();
+        }
+
+        Employee? IEmployeeRepository.GetByID(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IEmployeeRepository.Remove(Employee emp)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IEmployeeRepository.Update(Employee emp)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

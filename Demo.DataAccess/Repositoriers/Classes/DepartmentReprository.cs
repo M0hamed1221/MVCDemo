@@ -12,7 +12,7 @@ using Demo.DataAccess.Repositoriers.Interfaces;
 namespace Demo.DataAccess.Repositoriers.Classes
 {
 
-    public class DepartmentReprository(AppDbContext dbContext):
+    public class DepartmentReprository(AppDbContext dbContext) :
         GenaricRepository<Department>(dbContext)
         , IDepartmentReprository
     {
@@ -56,5 +56,29 @@ namespace Demo.DataAccess.Repositoriers.Classes
         //    return _dbContext.SaveChanges();
 
         //}
+        int IDepartmentReprository.Add(Department dept)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Department> IDepartmentReprository.GetAll(bool WithTracking)
+        {
+            throw new NotImplementedException();
+        }
+
+        Department? IDepartmentReprository.GetByID(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IDepartmentReprository.Remove(Department dept)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IDepartmentReprository.Update(Department dept)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

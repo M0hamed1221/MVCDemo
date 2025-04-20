@@ -7,6 +7,7 @@ using Demo.BusinessLogic.Services.Classes;
 using Microsoft.Extensions.DependencyInjection;
 using Demo.BusinessLogic.Profiles;
 using Microsoft.AspNetCore.Mvc;
+using Demo.BusinessLogic.Services.AttachmentService;
 
 namespace Demo.Persentation
 {
@@ -30,11 +31,13 @@ namespace Demo.Persentation
 
             });//Register service in Dependance Injection
 
-            builder.Services.AddScoped<IDepartmentReprository,DepartmentReprository>();
+            //builder.Services.AddScoped<IDepartmentReprository,DepartmentReprository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+
 
 
 
