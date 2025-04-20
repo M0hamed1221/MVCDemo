@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Demo.BusinessLogic.DTOs.DepartmentDtos;
 using Demo.BusinessLogic.Factory.DepartmentFactory;
 using Demo.BusinessLogic.Services.Interfaces;
@@ -11,7 +12,7 @@ using Demo.DataAccess.Repositoriers.Interfaces;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class DepartmentService(IDepartmentReprository _departmentReprository) : IDepartmentService
+    public class DepartmentService(IUnitOfWork _unitOfWork, IMapper _imapper) : IDepartmentService
     {
         //private readonly IDepartmentReprository _departmentReprository = departmentReprository;
 
@@ -19,7 +20,7 @@ namespace Demo.BusinessLogic.Services.Classes
         //Get All Departments
         public IEnumerable<DepartmentDto> GetAllDepartments()
         {
-            var Department = _departmentReprository.GetAll();
+            var Department = _unitOfWork.DepartmentReprository.GetAll();
             var departmentsToReturn = Department.Select(d => d.ToDepartmentDto());
             //var departmentsToReturn= Department.Select(d => new DepartmentDto()
             //{
@@ -35,7 +36,7 @@ namespace Demo.BusinessLogic.Services.Classes
 
         public DepartmentDetailesDto? GetDepartmentById(int id)
         {
-            var Department = _departmentReprository.GetByID(id);
+            var Department = _unitOfWork.DepartmentReprository.GetByID(id);
             return Department is null ? null : Department.ToDepartmentDetailesDto();
             //{
             //    DeptId = Department.Id,
@@ -53,24 +54,24 @@ namespace Demo.BusinessLogic.Services.Classes
       
         public int? UpdateDepartment(UpdateDepartmentDto  updateDepartmentDto)
         {
-            var res = _departmentReprository.Update(updateDepartmentDto.ToEntity());
-            return res;
+          _unitOfWork.DepartmentReprository.Update(updateDepartmentDto.ToEntity());
+            return _unitOfWork.SaveChanges();
         }
 
         public bool DeletedDepartment(int Id)
         {
-            var dept = _departmentReprository.GetByID(Id);
+            var dept = _unitOfWork.DepartmentReprository.GetByID(Id);
             if (dept is null) return false;
             else
             {
-                var res = _departmentReprository.Remove(dept);
-                return res > 0 ? true : false;
+              _unitOfWork.DepartmentReprository.Remove(dept);
+                return _unitOfWork.SaveChanges()  > 0 ? true : false;
             }
         }
         int IDepartmentService.CreateDepartment(CreateDepartmentDto createDepartmentDto)
         {
-            var res = _departmentReprository.Add(createDepartmentDto.ToEntity());
-            return res;
+           _unitOfWork.DepartmentReprository.Add(createDepartmentDto.ToEntity());
+            return _unitOfWork.SaveChanges();
         }
     }
 }

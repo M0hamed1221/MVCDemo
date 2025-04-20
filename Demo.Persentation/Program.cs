@@ -34,6 +34,7 @@ namespace Demo.Persentation
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 

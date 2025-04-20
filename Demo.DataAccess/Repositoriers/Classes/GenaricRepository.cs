@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Demo.DataAccess.Repositoriers.Classes
 {
-    public class GenaricRepository<TEntity> (AppDbContext dbContext) : iGenaricRepository<TEntity> where TEntity : BaseEntity
+    public class GenaricRepository<TEntity> (AppDbContext dbContext) : IGenaricRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly AppDbContext _dbContext = dbContext;
 
@@ -23,7 +24,7 @@ namespace Demo.DataAccess.Repositoriers.Classes
 
         public TEntity? GetByID(int ID) => _dbContext.Set<TEntity>().Find(ID);
 
-        public IEnumerable<TEntity> GetAll(bool WithTracking = false)
+        public IEnumerable<TEntity> GetAll( bool WithTracking = false)
         {
             if (WithTracking)
             {
@@ -35,36 +36,38 @@ namespace Demo.DataAccess.Repositoriers.Classes
             }
         }
 
-        public int Add(TEntity entity)
+      
+        public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> selector)
+        {
+            return _dbContext.Set<TEntity>()
+                 .Select(selector).ToList();
+        }
+
+        public IEnumerable<TEntity> GetAll<TResult>(Expression<Func<TEntity, bool>> filter)
+        {
+            return _dbContext.Set<TEntity>()
+                 .Where(filter)
+                 .ToList();
+        }
+        public void Add(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
-            return _dbContext.SaveChanges();
+           
         }
 
-        public int Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             _dbContext.Set<TEntity>().Update(entity);
-            return _dbContext.SaveChanges();
+      
         }
-        public int Remove(TEntity entity)
+        public void Remove(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
-            return _dbContext.SaveChanges();
+           
 
         }
-        IEnumerable<TResult> iGenaricRepository<TEntity>.GetAll<TResult>(System.Linq.Expressions.Expression<Func<TEntity, TResult>> selector)
-        {
-         return  _dbContext.Set<TEntity>()
-                .Select(selector).ToList();
-        }
-        //public IEnumerable<TEntity> GetIEnumerable()
-        //{
-        //   return _dbContext.Set<TEntity>();
-        //}
+      
 
-        //public IQueryable<TEntity> GetIQueryable()
-        //{
-        //    return _dbContext.Set<TEntity>();
-        //}
+     
     }
 }

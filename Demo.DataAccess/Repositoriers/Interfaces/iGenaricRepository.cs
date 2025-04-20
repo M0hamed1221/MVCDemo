@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace Demo.DataAccess.Repositoriers.Interfaces
 {
-    public interface iGenaricRepository<TEntity> where TEntity:BaseEntity
+    public interface IGenaricRepository<TEntity> where TEntity:BaseEntity
     {
-        int Add(TEntity entity);
-        IEnumerable<TEntity> GetAll(bool WithTracking = false);
+        void Add(TEntity entity);
+        IEnumerable<TEntity> GetAll(    bool WithTracking = false);
         IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity,TResult>> selector);
+        IEnumerable<TEntity> GetAll<TResult>(Expression<Func<TEntity,bool>> filter);
 
         TEntity? GetByID(int ID);
-        int Remove(TEntity entity);
-        int Update(TEntity entity);
+        void Remove(TEntity entity);
+        void Update(TEntity entity);
         //IEnumerable<TEntity> GetIEnumerable();
         //IQueryable<TEntity> GetIQueryable();
 

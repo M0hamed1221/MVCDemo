@@ -7,6 +7,7 @@ using Demo.DataAccess.Repositoriers.Classes;
 using Demo.DataAccess.Repositoriers.Interfaces;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +15,28 @@ using System.Threading.Tasks;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeService(IEmployeeRepository _employeeRepository,IMapper _imapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitOfWork,IMapper _imapper) : IEmployeeService
     {
-      
 
-        public IEnumerable<GetEmployeeDto> GetAllEmployees()
+        
+        public IEnumerable<GetEmployeeDto> GetAllEmployees(string ? EmployeeSearchName)
         {
-            var employees = _employeeRepository.GetAll();
-            //var employeesToReturn = employees.Select(e => e.ToGetEmployeeDto());
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrWhiteSpace(EmployeeSearchName))
+            
+                employees = _unitOfWork.EmployeeRepository.GetAll();
+              
+            
+            else
+            
+                employees = _unitOfWork.EmployeeRepository.GetAll(e => e.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
+                //var employeesToReturn = employees.Select(e => e.ToGetEmployeeDto());
+             
+            
             return _imapper.Map<IEnumerable<GetEmployeeDto>>(employees);
             //var res = _employeeRepository.GetIEnumerable()
             //.Select(emp => new GetEmployeeDto()
-            //{
+            //{ 
             //    Id = emp.Id,
             //    Name = emp.Name,
             //    Age = emp.Age,
@@ -45,7 +56,7 @@ namespace Demo.BusinessLogic.Services.Classes
 
         public EmployeeDetailesDto? GetEmployeeById(int id)
         {
-            var emp = _employeeRepository.GetByID(id);
+            var emp = _unitOfWork.EmployeeRepository.GetByID(id);
       
             return emp is null?null : _imapper.Map<EmployeeDetailesDto>(emp);
             //return emp is null ? null : emp.ToGetEmployeeDetailesDto();
@@ -55,17 +66,19 @@ namespace Demo.BusinessLogic.Services.Classes
         public int? UpdateEmployee(UpdateEmployeeDto updateEmployeeDto)
         {
             var MappedEmp = _imapper.Map<Employee>(updateEmployeeDto);
-            return _employeeRepository.Add(MappedEmp);
+            _unitOfWork.EmployeeRepository.Update(MappedEmp);
+            return _unitOfWork.SaveChanges();
         }
         public int CreateEmployee(CreateEmployeeDto createEmployeeDto)
         {
             var MappedEmp = _imapper.Map<Employee>(createEmployeeDto);
-            return _employeeRepository.Update(MappedEmp);
+            _unitOfWork.EmployeeRepository.Add(MappedEmp);
+            return _unitOfWork.SaveChanges();
         }
 
         public bool DeletedEmployee(int Id)
         {
-            var emp = _employeeRepository.GetByID(Id);
+            var emp = _unitOfWork.EmployeeRepository.GetByID(Id);
             if(emp is null)
             {
                 return false;
@@ -74,10 +87,22 @@ namespace Demo.BusinessLogic.Services.Classes
             else
             {
                 emp.IsDeleted = true;
-                var res = _employeeRepository.Update(emp);
-                return res > 0 ? true : false;
+                _unitOfWork.EmployeeRepository.Update(emp);
+                return _unitOfWork.SaveChanges()
+                 > 0 ? true : false;
             }
              
+        }
+
+        public bool CreatePurchase()
+        {
+
+            //=>Purchase  insert 
+            //=>inventory update qty
+            //=> store update qty
+
+
+            return true;
         }
     }
 }

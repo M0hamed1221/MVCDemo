@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Demo.DataAccess.Repositoriers.Classes
 {
-   public class EmployeeRepository(AppDbContext dbContext)
-        : GenaricRepository<Employee>(dbContext),
-        IEmployeeRepository
+    public class EmployeeRepository(AppDbContext dbContext)
+         : GenaricRepository<Employee>(dbContext),
+         IEmployeeRepository
     {
-      
+
         //private readonly AppDbContext _dbContext = dbContext;
 
         ////CRUD Of Departmeny
@@ -56,5 +56,6 @@ namespace Demo.DataAccess.Repositoriers.Classes
         //    return _dbContext.SaveChanges();
 
         //}
+     
     }
 }

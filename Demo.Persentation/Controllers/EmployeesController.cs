@@ -18,9 +18,10 @@ namespace Demo.Persentation.Controllers
         )
         : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string? EmployeeSearchName)
         {
-            var emps = _employeeService.GetAllEmployees();
+            var emps = _employeeService.GetAllEmployees(EmployeeSearchName);
+                //.Where(e => e.Name.Contains(EmployeeSearchName));
             return View(emps);
         }
         #region create Employee
