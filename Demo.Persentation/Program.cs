@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Demo.BusinessLogic.Profiles;
 using Microsoft.AspNetCore.Mvc;
 using Demo.BusinessLogic.Services.AttachmentService;
+using Demo.DataAccess.Models.IdentityModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Demo.Persentation
 {
@@ -37,8 +39,12 @@ namespace Demo.Persentation
             //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                            .AddEntityFrameworkStores<AppDbContext>()
+                            .AddDefaultTokenProviders();
 
-
+           // default Redirect Login Path
+           // builder.Services.ConfigureApplicationCookie(config=>config.LoginPath="Account/Login");
 
 
             //builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
@@ -58,12 +64,12 @@ namespace Demo.Persentation
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=LogIn}/{id?}");
 
             app.Run();
         }

@@ -8,10 +8,13 @@ using Demo.DataAccess.Models.SharedModel;
 using Demo.DataAccess.Repositoriers.Interfaces;
 using Demo.Persentation.ViewModels.DepartmentsViewModels;
 using Demo.Persentation.ViewModels.EmployeesViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Persentation.Controllers
 {
+    [Authorize]
+
     public class EmployeesController(IEmployeeService _employeeService,
         ILogger<DepartmentController> _logger,
         IWebHostEnvironment _environment 

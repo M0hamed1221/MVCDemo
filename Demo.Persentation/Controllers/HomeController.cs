@@ -1,9 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Demo.Persentation.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Demo.Persentation.Controllers;
-
+[Authorize]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
